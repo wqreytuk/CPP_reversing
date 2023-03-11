@@ -22,4 +22,4 @@ https://www.blackhat.com/presentations/bh-dc-07/Sabanal_Yason/Paper/bh-dc-07-Sab
 
 ![image](https://user-images.githubusercontent.com/48377190/224509863-48dac479-a304-4bde-b39f-0c5a6bd8ccb7.png)
 
-可以看到ecx并没有被进行任何初始化，直接就用上了
+可以在SomeObject类的成员函数function1中看到ecx并没有被进行任何初始化，直接就用上了
