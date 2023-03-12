@@ -315,4 +315,67 @@ ecx作为this指针，分别被构造函数和析构函数所调用，而且注�
 
 ## 通过C++的RTTI特性识别多态类
 
-RTTI是Run-Time Type Infomation的简称，该特性能够在**运行时**判断一个对象究竟是什么类型，操作符typeid和dynamic_cast都用到了这个特性，如果在没有启用RTTI特性的情况下使用这两个操作符，编译器是会报警的
+RTTI是Run-Time Type Infomation的简称，该特性能够在**运行时**判断一个对象究竟是什么类型
+
+[示例代码](https://github.com/wqreytuk/CPP_reversing/blob/main/exmaple_code/code_5.cpp)
+
+启用RTII：
+
+![image](https://user-images.githubusercontent.com/48377190/224550660-1e4357e0-5fc5-4c41-a629-a3b91ddc92dc.png)
+
+禁用RTTI：
+
+![image](https://user-images.githubusercontent.com/48377190/224550676-35650e31-49bb-40ee-a386-cc14ea74137e.png)
+
+VS有一个编译选项（flag）叫做`-d1reportAllClassLayout`，启用之后会输出所有类在内存中的布局
+
+![image](https://user-images.githubusercontent.com/48377190/224550688-b7714520-fc91-4e6d-80a6-2da2bd898842.png)
+
+为了实现RTTI，编译器在编译出来的二进制文件中存储了一些数据结构
+
+### RTTICompleteObjectLocator
+
+该结构包含两个指针，一个指向描述class信息的结构体，另一个指向描述class的继承关系的结构体
+
+![image](https://user-images.githubusercontent.com/48377190/224550702-dd171e29-3c7c-48c6-bb52-da2b3ca60386.png)
+
+使用IDA打开启用了RTII编译生成的exe
+
+![image](https://user-images.githubusercontent.com/48377190/224550712-b3b413d2-08e8-41ac-aa1b-fa2ae9e574d3.png)
+
+![image](https://user-images.githubusercontent.com/48377190/224550720-78d922af-1c55-4e8b-b0c3-05391429faf3.png)
+
+可以看到我们上面提到过的结构体
+
+typeDescriptor：
+
+![image](https://user-images.githubusercontent.com/48377190/224550742-412f8bd3-f599-42ac-acae-d31d2ccb8cc4.png)
+
+```
+.data:0041C138 ??_R0?AVAnimal@@@8 dd offset ??_7type_info@@6B@
+.data:0041C138                                         ; DATA XREF: .rdata:0041AAD8↑o
+.data:0041C138                                         ; .rdata:Animal::`RTTI Base Class Descriptor at (0,-1,0,64)'↑o
+.data:0041C138                                         ; reference to RTTI's vftable
+.data:0041C13C                 dd 0                    ; internal runtime reference
+.data:0041C140 aAvanimal       db '.?AVAnimal@@',0     ; type descriptor name
+```
+
+HierachyDescriptor:
+
+![image](https://user-images.githubusercontent.com/48377190/224550763-ca0da9eb-f32b-4423-be56-1969360745c4.png)
+
+```
+.rdata:0041AAE4 ; Animal::`RTTI Class Hierarchy Descriptor'
+.rdata:0041AAE4 ??_R3Animal@@8  dd 0                    ; DATA XREF: .rdata:0041AADC↑o
+.rdata:0041AAE4                                         ; .rdata:0041AB18↓o
+.rdata:0041AAE4                                         ; signature
+.rdata:0041AAE8                 dd 0                    ; attributes
+.rdata:0041AAEC                 dd 1                    ; # of items in the array of base classes
+.rdata:0041AAF0                 dd offset ??_R2Animal@@8 ; reference to the array of base classes
+```
+
+
+
+
+
+
