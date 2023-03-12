@@ -315,4 +315,4 @@ ecx作为this指针，分别被构造函数和析构函数所调用，而且注�
 
 ## 通过C++的RTTI特性识别多态类
 
-RTTIshi
+RTTI是Run-Time Type Infomation的简称，该特性能够在**运行时**判断一个对象究竟是什么类型，操作符typeid和dynamic_cast都用到了这个特性，如果在没有启用RTTI特性的情况下使用这两个操作符，编译器是会报警的
