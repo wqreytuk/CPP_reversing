@@ -306,9 +306,13 @@ vftable_of_4：
 
 ![image](https://user-images.githubusercontent.com/48377190/224531476-c6dd8a84-ec9e-438d-a8b0-ccf118d0f663.png)
 
-ecx作为this指针，分别被构造函数和析构函数所调用
+ecx作为this指针，分别被构造函数和析构函数所调用，而且注意ecx的值ebp-14h是一个没有初始化的栈地址
 
 
 ### 对动态声明的对象
 
 构造函数的识别关键就是一个对new的调用后面紧跟一个对constructer的调用，这个上面我们已经说明过了
+
+## 通过C++的RTTI特性识别多态类
+
+RTTIshi
