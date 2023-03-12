@@ -260,3 +260,55 @@ vftable_of_4：
 | ex4::ex4_fun2               |
 +-----------------------------+
 ```
+
+可以看到ex5并没有自己专属的vftable，而是和ex2合并到一起了，我做了以下测试，发现在声明ex5的时候，`class ex5 :public ex2, ex4`，哪个基类在前面，ex5的虚函数就会合并到哪个基类的vftable中
+
+# 识别class
+
+## 识别构造函数和析构函数
+
+需要注意的是，如果是默认构造函数和析构函数，在汇编代码中是看不到的，只有自己实现的构造函数和析构函数才能在汇编代码中看到显式的调用
+
+
+### 全局声明的对象
+
+对于这种情况，类的构造函数会在main函数被调用之前就被调用
+
+[示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_3.cpp)
+
+![image](https://user-images.githubusercontent.com/48377190/224530296-7dfa52a4-b2fa-4352-8306-d776b43b8b15.png)
+
+可以看到调用栈中并没有出现main函数
+
+在windbg中我看不到相关的汇编代码，用ida试一下
+
+在.data可以看到我们的全局对象
+
+```
+.data:0041B144 ; global_object go
+.data:0041B144 ?go@@3Vglobal_object@@A global_object <0>
+.data:0041B144                                         ; DATA XREF: _dynamic_initializer_for__go__+23↑o
+```
+
+查看该对象的交叉引用，即可定位到构造函数
+
+```assembly
+.text:004117F1                 push    7Bh ; '{'       ; a
+.text:004117F3                 mov     ecx, offset ?go@@3Vglobal_object@@A ; this
+.text:004117F8                 call    j_??0global_object@@QAE@H@Z ; global_object::global_object(int)
+```
+
+可以看到构造函数的调用特点，this指针用ecx寄存器，其他的参数用栈来传递
+
+### 局部对象
+
+[示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_4.cpp)
+
+![image](https://user-images.githubusercontent.com/48377190/224531476-c6dd8a84-ec9e-438d-a8b0-ccf118d0f663.png)
+
+ecx作为this指针，分别被构造函数和析构函数所调用
+
+
+### 对动态声明的对象
+
+构造函数的识别关键就是一个对new的调用后面紧跟一个对constructer的调用，这个上面我们已经说明过了
