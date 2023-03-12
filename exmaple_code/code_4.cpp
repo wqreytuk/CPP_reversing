@@ -5,6 +5,8 @@ class ex1 {
 	int var2;
 	char var3;
 public:
+	ex1(int a) { var1 = a; }
+	~ex1() { printf("destroy"); }
 	int get_var1();
 };
 
@@ -18,7 +20,7 @@ void test() {
 
 void local_declare_object() {
 	test();
-	ex1 instance_ex1;
+	ex1 instance_ex1(123);
 }
 
 int main() {
