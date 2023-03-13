@@ -277,7 +277,7 @@ vftable_of_4：
 
 [示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_3.cpp)
 
-![image](README.assets\224530296-7dfa52a4-b2fa-4352-8306-d776b43b8b15.png)
+![image](README.assets/224530296-7dfa52a4-b2fa-4352-8306-d776b43b8b15.png)
 
 可以看到调用栈中并没有出现main函数
 
@@ -305,7 +305,7 @@ vftable_of_4：
 
 [示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_4.cpp)
 
-![image](README.assets\224531476-c6dd8a84-ec9e-438d-a8b0-ccf118d0f663.png)
+![image](README.assets/224531476-c6dd8a84-ec9e-438d-a8b0-ccf118d0f663.png)
 
 ecx作为this指针，分别被构造函数和析构函数所调用，而且注意ecx的值ebp-14h是一个没有初始化的栈地址
 
@@ -322,15 +322,15 @@ RTTI是Run-Time Type Infomation的简称，该特性能够在**运行时**判断
 
 启用RTII：
 
-![image](README.assets\224550660-1e4357e0-5fc5-4c41-a629-a3b91ddc92dc.png)
+![image](README.assets/224550660-1e4357e0-5fc5-4c41-a629-a3b91ddc92dc.png)
 
 禁用RTTI：
 
-![image](README.assets\224550676-35650e31-49bb-40ee-a386-cc14ea74137e.png)
+![image](README.assets/224550676-35650e31-49bb-40ee-a386-cc14ea74137e.png)
 
 VS有一个编译选项（flag）叫做`-d1reportAllClassLayout`，启用之后会输出所有类在内存中的布局
 
-![image](README.assets\224550688-b7714520-fc91-4e6d-80a6-2da2bd898842.png)
+![image](README.assets/224550688-b7714520-fc91-4e6d-80a6-2da2bd898842.png)
 
 为了实现RTTI，编译器在编译出来的二进制文件中存储了一些数据结构
 
@@ -338,19 +338,19 @@ VS有一个编译选项（flag）叫做`-d1reportAllClassLayout`，启用之后�
 
 该结构包含两个指针，一个指向描述class信息的结构体，另一个指向描述class的继承关系的结构体
 
-![image](README.assets\224550702-dd171e29-3c7c-48c6-bb52-da2b3ca60386.png)
+![image](README.assets/224550702-dd171e29-3c7c-48c6-bb52-da2b3ca60386.png)
 
 使用IDA打开启用了RTII编译生成的exe
 
-![image](README.assets\224550712-b3b413d2-08e8-41ac-aa1b-fa2ae9e574d3.png)
+![image](README.assets/224550712-b3b413d2-08e8-41ac-aa1b-fa2ae9e574d3.png)
 
-![image](README.assets\224550720-78d922af-1c55-4e8b-b0c3-05391429faf3.png)
+![image](README.assets/224550720-78d922af-1c55-4e8b-b0c3-05391429faf3.png)
 
 可以看到我们上面提到过的结构体
 
 TypeDescriptor：
 
-![image](README.assets\224550742-412f8bd3-f599-42ac-acae-d31d2ccb8cc4.png)
+![image](README.assets/224550742-412f8bd3-f599-42ac-acae-d31d2ccb8cc4.png)
 
 ```
 .data:0041C138 ??_R0?AVAnimal@@@8 dd offset ??_7type_info@@6B@
@@ -363,7 +363,7 @@ TypeDescriptor：
 
 RTTIHierarchyDescriptor:
 
-![image](README.assets\224550763-ca0da9eb-f32b-4423-be56-1969360745c4.png)
+![image](README.assets/224550763-ca0da9eb-f32b-4423-be56-1969360745c4.png)
 
 ```
 .rdata:0041AAE4 ; Animal::`RTTI Class Hierarchy Descriptor'
