@@ -752,3 +752,19 @@ g类中对e类的RTTIBaseClassDescriptor
 ```
 
 其中的4是vbtabel在g类中的偏移量（相对于g类的地址），8是e类的vftable相对于g类的vbtable的偏移量
+
+
+
+
+
+现在再来看这个图就很容易弄明白了
+
+
+
+![image-20230313092025119](README.assets\image-20230313092025119.png)
+
+每个类的CompeteObjectLocator中的CLassHierarchyDescriptor的BaseClassDescriptor都会只想自己和父类的TypeDescriptor
+
+BaseClassDescriptor存在于BaseClassArray中，有n个父类，那么该数组中就有n+1个元素（要算上自己）
+
+TypeDescriptor又存在于CompleteObjectLocator中，所以可以看到是环环相扣的结构

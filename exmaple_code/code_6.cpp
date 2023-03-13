@@ -16,7 +16,7 @@ public:
     }
 };
 
-class g : public a,public e {
+class g : public virtual a, public virtual e {
 public:
     virtual  void makegSound() {
         cout << "The dog says woof!" << endl;
