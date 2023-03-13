@@ -768,3 +768,240 @@ g类中对e类的RTTIBaseClassDescriptor
 BaseClassDescriptor存在于BaseClassArray中，有n个父类，那么该数组中就有n+1个元素（要算上自己）
 
 TypeDescriptor又存在于CompleteObjectLocator中，所以可以看到是环环相扣的结构
+
+不过这里面的从vftable指向CompleteObjectLocator的箭头我不是很理解，从windbg的内存来看，在类的vftbale后面隔了4个字节的0之后的地址确实和RTTICompleteObjectLocator有关，反正就感觉有点对不上
+
+![image-20230313094757046](README.assets\image-20230313094757046.png)
+
+
+
+# 识别类之间的关系
+
+## 通过分析构造函数来获取类之间的关系
+
+类的构造函数中包含call基类构造函数和设置vftable的代码（如果有vftable的话）
+
+
+
+### 单继承
+
+
+
+
+
+[示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_7.cpp)
+
+
+
+下面是windbg中显示的g类的构造函数的汇编代码
+
+
+
+```assembly
+ConsoleApplication3!g::g:
+00242070 55              push    ebp
+00242071 8bec            mov     ebp,esp
+00242073 81eccc000000    sub     esp,0CCh
+00242079 53              push    ebx
+0024207a 56              push    esi
+0024207b 57              push    edi
+0024207c 51              push    ecx
+0024207d 8d7df4          lea     edi,[ebp-0Ch]
+00242080 b903000000      mov     ecx,3
+00242085 b8cccccccc      mov     eax,0CCCCCCCCh
+0024208a f3ab            rep stos dword ptr es:[edi]
+0024208c 59              pop     ecx
+0024208d 894df8          mov     dword ptr [ebp-8],ecx
+00242090 8b4df8          mov     ecx,dword ptr [ebp-8]
+00242093 e8f2f1ffff      call    ConsoleApplication3!ILT+645(??0aQAEXZ) (0024128a)
+00242098 8b45f8          mov     eax,dword ptr [ebp-8]
+0024209b c700609b2400    mov     dword ptr [eax],offset ConsoleApplication3!g::`vftable' (00249b60)
+002420a1 8b45f8          mov     eax,dword ptr [ebp-8]
+002420a4 5f              pop     edi
+002420a5 5e              pop     esi
+002420a6 5b              pop     ebx
+002420a7 81c4cc000000    add     esp,0CCh
+002420ad 3bec            cmp     ebp,esp
+002420af e808f2ffff      call    ConsoleApplication3!ILT+695(__RTC_CheckEsp) (002412bc)
+002420b4 8be5            mov     esp,ebp
+002420b6 5d              pop     ebp
+002420b7 c3              ret
+```
+
+
+
+可以看到代码中调用了基类a的构造函数（从mangled name `??0aQAEXZ`中可以看出来，这个的意思就是a类的构造函数）
+
+
+
+但是在实际进行分析的时候我们是看不到这个mangled name的，使用this指针作为第一个参数进行调用不一定就是在call基类的构造函数，也有可能是在调用自己的成员函数，这个是没有办法进行区分的，只能凭经验
+
+
+
+如果我们假设当前函数是一个构造函数，那么在这个构造函数中被调用的函数大概率就是基类的构造函数
+
+通过查看当前函数的交叉引用可以更好地判断它到底是不是一个构造函数
+
+### 多继承
+
+[示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_8.cpp)
+
+
+
+g类的构造函数
+
+```assembly
+ConsoleApplication3!g::g:
+007520b0 55              push    ebp
+007520b1 8bec            mov     ebp,esp
+007520b3 81eccc000000    sub     esp,0CCh
+007520b9 53              push    ebx
+007520ba 56              push    esi
+007520bb 57              push    edi
+007520bc 51              push    ecx
+007520bd 8d7df4          lea     edi,[ebp-0Ch]
+007520c0 b903000000      mov     ecx,3
+007520c5 b8cccccccc      mov     eax,0CCCCCCCCh
+007520ca f3ab            rep stos dword ptr es:[edi]
+007520cc 59              pop     ecx
+007520cd 894df8          mov     dword ptr [ebp-8],ecx
+007520d0 8b4df8          mov     ecx,dword ptr [ebp-8]
+007520d3 e8b7f1ffff      call    ConsoleApplication3!ILT+650(??0aQAEXZ) (0075128f)
+007520d8 8b4df8          mov     ecx,dword ptr [ebp-8]
+007520db 83c104          add     ecx,4
+007520de e876f0ffff      call    ConsoleApplication3!ILT+340(??0bQAEXZ) (00751159)
+007520e3 8b45f8          mov     eax,dword ptr [ebp-8]
+007520e6 c7006c9b7500    mov     dword ptr [eax],offset ConsoleApplication3!g::`vftable' (00759b6c)
+007520ec 8b45f8          mov     eax,dword ptr [ebp-8]
+007520ef c740047c9b7500  mov     dword ptr [eax+4],offset ConsoleApplication3!g::`vftable' (00759b7c)
+007520f6 8b45f8          mov     eax,dword ptr [ebp-8]
+007520f9 5f              pop     edi
+007520fa 5e              pop     esi
+007520fb 5b              pop     ebx
+007520fc 81c4cc000000    add     esp,0CCh
+00752102 3bec            cmp     ebp,esp
+00752104 e8b8f1ffff      call    ConsoleApplication3!ILT+700(__RTC_CheckEsp) (007512c1)
+00752109 8be5            mov     esp,ebp
+0075210b 5d              pop     ebp
+0075210c c3              ret
+```
+
+
+
+多继承的代码更容易辨识，观察上面的代码可以看到，两次调用都使用了ecx，但是第二次调用给ecx加上了一个值为4的offset（说明第二次调用是另一个基类），看到这个基本上就可以判断出来当前函数是多继承派生的子类的构造函数了
+
+
+
+## 多态类之间的关系
+
+这里再贴一下RTTIClassHierarchyDescriptor的定义
+
+![image-20230313102614797](README.assets\image-20230313102614797.png)
+
+
+
+如果有下面这种继承关系
+
+```c++
+class A {}
+class B : public A {}
+class C : public B {}
+```
+
+[示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_9.cpp)
+
+
+
+[RTTI数据](https://github.com/wqreytuk/CPP_reversing/blob/main/raw_analyse/3)
+
+
+
+
+
+那么就有下图：
+
+![image-20230313103004087](README.assets\image-20230313103004087.png)
+
+
+
+在上图中可以看到C类的BaseClassArray中的其中两个元素，一个指向了A，另一个指向了B，为了确定继承关系，可以查看B类的BaseClassArray中的成员是否指向了A类，如果存在这种指向，则说明继承关系为C->B->A，否则就说明C是多继承
+
+
+
+## 识别类成员
+
+通过查找使用this+offset方式访问的变量来确定类的成员
+
+[示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_10.cpp)
+
+
+
+类A的构造函数
+
+```assembly
+ConsoleApplication3!A::A [C:\Users\123\source\repos\ConsoleApplication3\ConsoleApplication3\Source.cpp @ 11]:
+   11 01001790 55              push    ebp
+   11 01001791 8bec            mov     ebp,esp
+   11 01001793 81eccc000000    sub     esp,0CCh
+   11 01001799 53              push    ebx
+   11 0100179a 56              push    esi
+   11 0100179b 57              push    edi
+   11 0100179c 51              push    ecx
+   11 0100179d 8d7df4          lea     edi,[ebp-0Ch]
+   11 010017a0 b903000000      mov     ecx,3
+   11 010017a5 b8cccccccc      mov     eax,0CCCCCCCCh
+   11 010017aa f3ab            rep stos dword ptr es:[edi]
+   11 010017ac 59              pop     ecx
+   11 010017ad 894df8          mov     dword ptr [ebp-8],ecx
+15732480 010017b0 b929c00001      mov     ecx,offset ConsoleApplication3!_NULL_IMPORT_DESCRIPTOR <PERF> (ConsoleApplication3+0x1c029) (0100c029)
+15732480 010017b5 e86bfbffff      call    ConsoleApplication3!ILT+800(__CheckForDebuggerJustMyCode (01001325)
+   12 010017ba 8b45f8          mov     eax,dword ptr [ebp-8]
+   12 010017bd 8b4d08          mov     ecx,dword ptr [ebp+8]
+   12 010017c0 8908            mov     dword ptr [eax],ecx
+   13 010017c2 8b45f8          mov     eax,dword ptr [ebp-8]
+   13 010017c5 8b4d0c          mov     ecx,dword ptr [ebp+0Ch]
+   13 010017c8 894804          mov     dword ptr [eax+4],ecx
+   14 010017cb 8b45f8          mov     eax,dword ptr [ebp-8]
+   14 010017ce 8b4d10          mov     ecx,dword ptr [ebp+10h]
+   14 010017d1 894808          mov     dword ptr [eax+8],ecx
+   15 010017d4 8b45f8          mov     eax,dword ptr [ebp-8]
+   15 010017d7 5f              pop     edi
+   15 010017d8 5e              pop     esi
+   15 010017d9 5b              pop     ebx
+   15 010017da 81c4cc000000    add     esp,0CCh
+   15 010017e0 3bec            cmp     ebp,esp
+   15 010017e2 e867faffff      call    ConsoleApplication3!ILT+585(__RTC_CheckEsp) (0100124e)
+   15 010017e7 8be5            mov     esp,ebp
+   15 010017e9 5d              pop     ebp
+   15 010017ea c20c00          ret     0Ch
+```
+
+ecx就是this指针，先给[ebp-8]，然后[ebp-8]给eax，然后分别对eax的偏移量0、4、8进行了三次赋值，其实就是在给成员变量进行赋值操作
+
+
+
+另外，如果存在虚函数，也可以通过查看对vftable偏移量的访问识别出来
+
+[示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_11.cpp)
+
+
+
+```assembly
+   18 00e128de e817e8ffff      call    ConsoleApplication3!ILT+245(??0gQAEXZ) (00e110fa)
+   18 00e128e3 898524ffffff    mov     dword ptr [ebp-0DCh],eax			; this指针
+   18 00e128e9 eb0a            jmp     ConsoleApplication3!main+0x65 (00e128f5)  Branch
+
+ConsoleApplication3!main+0x5b [C:\Users\123\source\repos\ConsoleApplication3\ConsoleApplication3\Source.cpp @ 18]:
+   18 00e128eb c78524ffffff00000000 mov dword ptr [ebp-0DCh],0
+
+ConsoleApplication3!main+0x65 [C:\Users\123\source\repos\ConsoleApplication3\ConsoleApplication3\Source.cpp @ 18]:
+   18 00e128f5 8b9524ffffff    mov     edx,dword ptr [ebp-0DCh]			; this指针
+   18 00e128fb 8955f8          mov     dword ptr [ebp-8],edx			; this指针
+   19 00e128fe 8b45f8          mov     eax,dword ptr [ebp-8]			; this指针
+   19 00e12901 8b10            mov     edx,dword ptr [eax]				; this指针取值，vftable地址
+   19 00e12903 8bf4            mov     esi,esp
+   19 00e12905 8b4df8          mov     ecx,dword ptr [ebp-8]
+   19 00e12908 8b02            mov     eax,dword ptr [edx]				; vftable地址取值，第一个虚函数
+   19 00e1290a ffd0            call    eax								; 调用虚函数
+```
+

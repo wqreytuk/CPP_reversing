@@ -1,0 +1,206 @@
+.rdata:0041AA08 ; const A::`RTTI Complete Object Locator'
+.rdata:0041AA08 ??_R4A@@6B@     dd 0                    ; DATA XREF: .rdata:00419B30↑o
+.rdata:0041AA08                                         ; signature
+.rdata:0041AA0C                 dd 0                    ; offset of this vtable in complete class (from top)
+.rdata:0041AA10                 dd 0                    ; offset of constructor displacement
+.rdata:0041AA14                 dd offset ??_R0?AVA@@@8 ; reference to type description
+.rdata:0041AA18                 dd offset ??_R3A@@8     ; reference to hierarchy description
+.rdata:0041AA1C                 align 10h
+.rdata:0041AA20 ; A::`RTTI Class Hierarchy Descriptor'
+.rdata:0041AA20 ??_R3A@@8       dd 0                    ; DATA XREF: .rdata:0041AA18↑o
+.rdata:0041AA20                                         ; .rdata:0041AA54↓o
+.rdata:0041AA20                                         ; signature
+.rdata:0041AA24                 dd 0                    ; attributes
+.rdata:0041AA28                 dd 1                    ; # of items in the array of base classes
+.rdata:0041AA2C                 dd offset ??_R2A@@8     ; reference to the array of base classes
+.rdata:0041AA30                 db    0
+.rdata:0041AA31                 db    0
+.rdata:0041AA32                 db    0
+.rdata:0041AA33                 db    0
+.rdata:0041AA34 ; A::`RTTI Base Class Array'
+.rdata:0041AA34 ??_R2A@@8       dd offset ??_R1A@?0A@EA@A@@8
+.rdata:0041AA34                                         ; DATA XREF: .rdata:0041AA2C↑o
+.rdata:0041AA34                                         ; reference to base class decription 1
+.rdata:0041AA38                 db    0
+.rdata:0041AA39                 db    0
+.rdata:0041AA3A                 db    0
+.rdata:0041AA3B                 db    0
+.rdata:0041AA3C ; A::`RTTI Base Class Descriptor at (0, -1, 0, 64)'
+.rdata:0041AA3C ??_R1A@?0A@EA@A@@8 dd offset ??_R0?AVA@@@8
+.rdata:0041AA3C                                         ; DATA XREF: .rdata:A::`RTTI Base Class Array'↑o
+.rdata:0041AA3C                                         ; .rdata:0041AA90↓o ...
+.rdata:0041AA3C                                         ; reference to type description
+.rdata:0041AA40                 dd 0                    ; # of sub elements within base class array
+.rdata:0041AA44                 dd 0                    ; member displacement
+.rdata:0041AA48                 dd -1                   ; vftable displacement
+.rdata:0041AA4C                 dd 0                    ; displacement within vftable
+.rdata:0041AA50                 dd 40h                  ; base class attributes
+.rdata:0041AA54                 dd offset ??_R3A@@8     ; reference to class hierarchy descriptor
+.rdata:0041AA58                 align 10h
+.rdata:0041AA60 ; const B::`RTTI Complete Object Locator'
+.rdata:0041AA60 ??_R4B@@6B@     dd 0                    ; DATA XREF: .rdata:00419B5C↑o
+.rdata:0041AA60                                         ; signature
+.rdata:0041AA64                 dd 0                    ; offset of this vtable in complete class (from top)
+.rdata:0041AA68                 dd 0                    ; offset of constructor displacement
+.rdata:0041AA6C                 dd offset ??_R0?AVB@@@8 ; reference to type description
+.rdata:0041AA70                 dd offset ??_R3B@@8     ; reference to hierarchy description
+.rdata:0041AA74                 align 8
+.rdata:0041AA78 ; B::`RTTI Class Hierarchy Descriptor'
+.rdata:0041AA78 ??_R3B@@8       dd 0                    ; DATA XREF: .rdata:0041AA70↑o
+.rdata:0041AA78                                         ; .rdata:0041AAB0↓o
+.rdata:0041AA78                                         ; signature
+.rdata:0041AA7C                 dd 0                    ; attributes
+.rdata:0041AA80                 dd 2                    ; # of items in the array of base classes
+.rdata:0041AA84                 dd offset ??_R2B@@8     ; reference to the array of base classes
+.rdata:0041AA88                 db    0
+.rdata:0041AA89                 db    0
+.rdata:0041AA8A                 db    0
+.rdata:0041AA8B                 db    0
+.rdata:0041AA8C ; B::`RTTI Base Class Array'
+.rdata:0041AA8C ??_R2B@@8       dd offset ??_R1A@?0A@EA@B@@8
+.rdata:0041AA8C                                         ; DATA XREF: .rdata:0041AA84↑o
+.rdata:0041AA8C                                         ; reference to base class decription 1
+.rdata:0041AA90                 dd offset ??_R1A@?0A@EA@A@@8 ; reference to base class decription 2
+.rdata:0041AA94                 align 8
+.rdata:0041AA98 ; B::`RTTI Base Class Descriptor at (0, -1, 0, 64)'
+.rdata:0041AA98 ??_R1A@?0A@EA@B@@8 dd offset ??_R0?AVB@@@8
+.rdata:0041AA98                                         ; DATA XREF: .rdata:B::`RTTI Base Class Array'↑o
+.rdata:0041AA98                                         ; .rdata:0041AAEC↓o
+.rdata:0041AA98                                         ; reference to type description
+.rdata:0041AA9C                 dd 1                    ; # of sub elements within base class array
+.rdata:0041AAA0                 dd 0                    ; member displacement
+.rdata:0041AAA4                 dd -1                   ; vftable displacement
+.rdata:0041AAA8                 dd 0                    ; displacement within vftable
+.rdata:0041AAAC                 dd 40h                  ; base class attributes
+.rdata:0041AAB0                 dd offset ??_R3B@@8     ; reference to class hierarchy descriptor
+.rdata:0041AAB4                 db    0
+.rdata:0041AAB5                 db    0
+.rdata:0041AAB6                 db    0
+.rdata:0041AAB7                 db    0
+.rdata:0041AAB8                 db    0
+.rdata:0041AAB9                 db    0
+.rdata:0041AABA                 db    0
+.rdata:0041AABB                 db    0
+.rdata:0041AABC ; const C::`RTTI Complete Object Locator'
+.rdata:0041AABC ??_R4C@@6B@     dd 0                    ; DATA XREF: .rdata:00419B80↑o
+.rdata:0041AABC                                         ; signature
+.rdata:0041AAC0                 dd 0                    ; offset of this vtable in complete class (from top)
+.rdata:0041AAC4                 dd 0                    ; offset of constructor displacement
+.rdata:0041AAC8                 dd offset ??_R0?AVC@@@8 ; reference to type description
+.rdata:0041AACC                 dd offset ??_R3C@@8     ; reference to hierarchy description
+.rdata:0041AAD0                 db    0
+.rdata:0041AAD1                 db    0
+.rdata:0041AAD2                 db    0
+.rdata:0041AAD3                 db    0
+.rdata:0041AAD4 ; C::`RTTI Class Hierarchy Descriptor'
+.rdata:0041AAD4 ??_R3C@@8       dd 0                    ; DATA XREF: .rdata:0041AACC↑o
+.rdata:0041AAD4                                         ; .rdata:0041AB10↓o
+.rdata:0041AAD4                                         ; signature
+.rdata:0041AAD8                 dd 0                    ; attributes
+.rdata:0041AADC                 dd 3                    ; # of items in the array of base classes
+.rdata:0041AAE0                 dd offset ??_R2C@@8     ; reference to the array of base classes
+.rdata:0041AAE4                 align 8
+.rdata:0041AAE8 ; C::`RTTI Base Class Array'
+.rdata:0041AAE8 ??_R2C@@8       dd offset ??_R1A@?0A@EA@C@@8
+.rdata:0041AAE8                                         ; DATA XREF: .rdata:0041AAE0↑o
+.rdata:0041AAE8                                         ; reference to base class decription 1
+.rdata:0041AAEC                 dd offset ??_R1A@?0A@EA@B@@8 ; reference to base class decription 2
+.rdata:0041AAF0                 dd offset ??_R1A@?0A@EA@A@@8 ; reference to base class decription 3
+.rdata:0041AAF4                 align 8
+.rdata:0041AAF8 ; C::`RTTI Base Class Descriptor at (0, -1, 0, 64)'
+.rdata:0041AAF8 ??_R1A@?0A@EA@C@@8 dd offset ??_R0?AVC@@@8
+.rdata:0041AAF8                                         ; DATA XREF: .rdata:C::`RTTI Base Class Array'↑o
+.rdata:0041AAF8                                         ; reference to type description
+.rdata:0041AAFC                 dd 2                    ; # of sub elements within base class array
+.rdata:0041AB00                 dd 0                    ; member displacement
+.rdata:0041AB04                 dd -1                   ; vftable displacement
+.rdata:0041AB08                 dd 0                    ; displacement within vftable
+.rdata:0041AB0C                 dd 40h                  ; base class attributes
+.rdata:0041AB10                 dd offset ??_R3C@@8     ; reference to class hierarchy descriptor
+.rdata:0041AB14                 db    0
+.rdata:0041AB15                 db    0
+.rdata:0041AB16                 db    0
+.rdata:0041AB17                 db    0
+.rdata:0041AB18                 db    0
+.rdata:0041AB19                 db    0
+.rdata:0041AB1A                 db    0
+.rdata:0041AB1B                 db    0
+.rdata:0041AB1C ; const type_info::`RTTI Complete Object Locator'
+.rdata:0041AB1C ??_R4type_info@@6B@ dd 0                ; DATA XREF: .rdata:00419BC4↑o
+.rdata:0041AB1C                                         ; signature
+.rdata:0041AB20                 dd 0                    ; offset of this vtable in complete class (from top)
+.rdata:0041AB24                 dd 0                    ; offset of constructor displacement
+.rdata:0041AB28                 dd offset ??_R0?AVtype_info@@@8 ; reference to type description
+.rdata:0041AB2C                 dd offset ??_R3type_info@@8 ; reference to hierarchy description
+.rdata:0041AB30                 db    0
+.rdata:0041AB31                 db    0
+.rdata:0041AB32                 db    0
+.rdata:0041AB33                 db    0
+.rdata:0041AB34 ; type_info::`RTTI Class Hierarchy Descriptor'
+.rdata:0041AB34 ??_R3type_info@@8 dd 0                  ; DATA XREF: .rdata:0041AB2C↑o
+.rdata:0041AB34                                         ; .rdata:0041AB68↓o
+.rdata:0041AB34                                         ; signature
+.rdata:0041AB38                 dd 0                    ; attributes
+.rdata:0041AB3C                 dd 1                    ; # of items in the array of base classes
+.rdata:0041AB40                 dd offset ??_R2type_info@@8 ; reference to the array of base classes
+.rdata:0041AB44                 align 8
+.rdata:0041AB48 ; type_info::`RTTI Base Class Array'
+.rdata:0041AB48 ??_R2type_info@@8 dd offset ??_R1A@?0A@EA@type_info@@8
+.rdata:0041AB48                                         ; DATA XREF: .rdata:0041AB40↑o
+.rdata:0041AB48                                         ; reference to base class decription 1
+.rdata:0041AB4C                 align 10h
+.rdata:0041AB50 ; type_info::`RTTI Base Class Descriptor at (0, -1, 0, 64)'
+.rdata:0041AB50 ??_R1A@?0A@EA@type_info@@8 dd offset ??_R0?AVtype_info@@@8
+.rdata:0041AB50                                         ; DATA XREF: .rdata:type_info::`RTTI Base Class Array'↑o
+.rdata:0041AB50                                         ; reference to type description
+.rdata:0041AB54                 dd 0                    ; # of sub elements within base class array
+.rdata:0041AB58                 dd 0                    ; member displacement
+.rdata:0041AB5C                 dd -1                   ; vftable displacement
+.rdata:0041AB60                 dd 0                    ; displacement within vftable
+.rdata:0041AB64                 dd 40h                  ; base class attributes
+.rdata:0041AB68                 dd offset ??_R3type_info@@8 ; reference to class hierarchy descriptor   
+
+.data:0041C138 ; public class A /* mdisp:0 */
+.data:0041C138 ; class A `RTTI Type Descriptor'
+.data:0041C138 ??_R0?AVA@@@8   dd offset ??_7type_info@@6B@
+.data:0041C138                                         ; DATA XREF: .rdata:0041AA14↑o
+.data:0041C138                                         ; .rdata:A::`RTTI Base Class Descriptor at (0,-1,0,64)'↑o
+.data:0041C138                                         ; reference to RTTI's vftable
+.data:0041C13C                 dd 0                    ; internal runtime reference
+.data:0041C140 aAva            db '.?AVA@@',0          ; type descriptor name
+.data:0041C148                 db    0
+.data:0041C149                 db    0
+.data:0041C14A                 db    0
+.data:0041C14B                 db    0
+.data:0041C14C ; public class B /* mdisp:0 */ :
+.data:0041C14C ;   public class A /* mdisp:0 */
+.data:0041C14C ; class B `RTTI Type Descriptor'
+.data:0041C14C ??_R0?AVB@@@8   dd offset ??_7type_info@@6B@
+.data:0041C14C                                         ; DATA XREF: .rdata:0041AA6C↑o
+.data:0041C14C                                         ; .rdata:B::`RTTI Base Class Descriptor at (0,-1,0,64)'↑o
+.data:0041C14C                                         ; reference to RTTI's vftable
+.data:0041C150                 dd 0                    ; internal runtime reference
+.data:0041C154 aAvb            db '.?AVB@@',0          ; type descriptor name
+.data:0041C15C                 align 10h
+.data:0041C160 ; public class C /* mdisp:0 */ :
+.data:0041C160 ;   public class B /* mdisp:0 */ :
+.data:0041C160 ;     public class A /* mdisp:0 */
+.data:0041C160 ; class C `RTTI Type Descriptor'
+.data:0041C160 ??_R0?AVC@@@8   dd offset ??_7type_info@@6B@
+.data:0041C160                                         ; DATA XREF: .rdata:0041AAC8↑o
+.data:0041C160                                         ; .rdata:C::`RTTI Base Class Descriptor at (0,-1,0,64)'↑o
+.data:0041C160                                         ; reference to RTTI's vftable
+.data:0041C164                 dd 0                    ; internal runtime reference
+.data:0041C168 aAvc            db '.?AVC@@',0          ; type descriptor name
+.data:0041C170                 db    0
+.data:0041C171                 db    0
+.data:0041C172                 db    0
+.data:0041C173                 db    0
+.data:0041C174 ; public class type_info /* mdisp:0 */
+.data:0041C174 ; class type_info `RTTI Type Descriptor'
+.data:0041C174 ??_R0?AVtype_info@@@8 dd offset ??_7type_info@@6B@
+.data:0041C174                                         ; DATA XREF: .rdata:0041AB28↑o
+.data:0041C174                                         ; .rdata:type_info::`RTTI Base Class Descriptor at (0,-1,0,64)'↑o
+.data:0041C174                                         ; reference to RTTI's vftable
+.data:0041C178                 dd 0                    ; internal runtime reference
+.data:0041C17C aAvtypeInfo     db '.?AVtype_info@@',0  ; type descriptor name
