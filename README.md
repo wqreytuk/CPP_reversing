@@ -7,7 +7,7 @@ https://www.blackhat.com/presentations/bh-dc-07/Sabanal_Yason/Paper/bh-dc-07-Sab
 
 [示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_1.cpp)
 
-![image](https://user-images.githubusercontent.com/48377190/224508343-efcf2c10-dafc-4368-8650-724565a0ae4c.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224508343-efcf2c10-dafc-4368-8650-724565a0ae4c.png)
 
 可以看到，在两次test函数中间，出现了两个call指令，但是源代码中只有一个new对象的操作，关于这个地方的解释就是第一个call是new关键字发起的调用，
 第二个call是对象的构造函数的调用
@@ -180,6 +180,7 @@ vftable：
 | virtuable_func2_addr_of_ex2 |
 +-----------------------------+
 ```
+
 可以看到，只是将ex3中的成员变量拼到下面而已
 
 ### 多继承
@@ -276,7 +277,7 @@ vftable_of_4：
 
 [示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_3.cpp)
 
-![image](https://user-images.githubusercontent.com/48377190/224530296-7dfa52a4-b2fa-4352-8306-d776b43b8b15.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224530296-7dfa52a4-b2fa-4352-8306-d776b43b8b15.png)
 
 可以看到调用栈中并没有出现main函数
 
@@ -304,7 +305,7 @@ vftable_of_4：
 
 [示例代码](https://github.com/wqreytuk/C-_reversing/blob/main/exmaple_code/code_4.cpp)
 
-![image](https://user-images.githubusercontent.com/48377190/224531476-c6dd8a84-ec9e-438d-a8b0-ccf118d0f663.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224531476-c6dd8a84-ec9e-438d-a8b0-ccf118d0f663.png)
 
 ecx作为this指针，分别被构造函数和析构函数所调用，而且注意ecx的值ebp-14h是一个没有初始化的栈地址
 
@@ -321,15 +322,15 @@ RTTI是Run-Time Type Infomation的简称，该特性能够在**运行时**判断
 
 启用RTII：
 
-![image](https://user-images.githubusercontent.com/48377190/224550660-1e4357e0-5fc5-4c41-a629-a3b91ddc92dc.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224550660-1e4357e0-5fc5-4c41-a629-a3b91ddc92dc.png)
 
 禁用RTTI：
 
-![image](https://user-images.githubusercontent.com/48377190/224550676-35650e31-49bb-40ee-a386-cc14ea74137e.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224550676-35650e31-49bb-40ee-a386-cc14ea74137e.png)
 
 VS有一个编译选项（flag）叫做`-d1reportAllClassLayout`，启用之后会输出所有类在内存中的布局
 
-![image](https://user-images.githubusercontent.com/48377190/224550688-b7714520-fc91-4e6d-80a6-2da2bd898842.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224550688-b7714520-fc91-4e6d-80a6-2da2bd898842.png)
 
 为了实现RTTI，编译器在编译出来的二进制文件中存储了一些数据结构
 
@@ -337,19 +338,19 @@ VS有一个编译选项（flag）叫做`-d1reportAllClassLayout`，启用之后�
 
 该结构包含两个指针，一个指向描述class信息的结构体，另一个指向描述class的继承关系的结构体
 
-![image](https://user-images.githubusercontent.com/48377190/224550702-dd171e29-3c7c-48c6-bb52-da2b3ca60386.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224550702-dd171e29-3c7c-48c6-bb52-da2b3ca60386.png)
 
 使用IDA打开启用了RTII编译生成的exe
 
-![image](https://user-images.githubusercontent.com/48377190/224550712-b3b413d2-08e8-41ac-aa1b-fa2ae9e574d3.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224550712-b3b413d2-08e8-41ac-aa1b-fa2ae9e574d3.png)
 
-![image](https://user-images.githubusercontent.com/48377190/224550720-78d922af-1c55-4e8b-b0c3-05391429faf3.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224550720-78d922af-1c55-4e8b-b0c3-05391429faf3.png)
 
 可以看到我们上面提到过的结构体
 
 TypeDescriptor：
 
-![image](https://user-images.githubusercontent.com/48377190/224550742-412f8bd3-f599-42ac-acae-d31d2ccb8cc4.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224550742-412f8bd3-f599-42ac-acae-d31d2ccb8cc4.png)
 
 ```
 .data:0041C138 ??_R0?AVAnimal@@@8 dd offset ??_7type_info@@6B@
@@ -362,7 +363,7 @@ TypeDescriptor：
 
 RTTIHierarchyDescriptor:
 
-![image](https://user-images.githubusercontent.com/48377190/224550763-ca0da9eb-f32b-4423-be56-1969360745c4.png)
+![image](C:\Users\123\CPP_reversing\README.assets\224550763-ca0da9eb-f32b-4423-be56-1969360745c4.png)
 
 ```
 .rdata:0041AAE4 ; Animal::`RTTI Class Hierarchy Descriptor'
@@ -761,9 +762,9 @@ g类中对e类的RTTIBaseClassDescriptor
 
 
 
-![image-20230313092025119](README.assets\image-20230313092025119.png)
+![image-20230313092025119](README.assets/image-20230313092025119.png)
 
-每个类的CompeteObjectLocator中的CLassHierarchyDescriptor的BaseClassDescriptor都会只想自己和父类的TypeDescriptor
+每个类的CompeteObjectLocator中的CLassHierarchyDescriptor的BaseClassDescriptor都会指向自己和父类的TypeDescriptor
 
 BaseClassDescriptor存在于BaseClassArray中，有n个父类，那么该数组中就有n+1个元素（要算上自己）
 
@@ -771,7 +772,7 @@ TypeDescriptor又存在于CompleteObjectLocator中，所以可以看到是环环
 
 不过这里面的从vftable指向CompleteObjectLocator的箭头我不是很理解，从windbg的内存来看，在类的vftbale后面隔了4个字节的0之后的地址确实和RTTICompleteObjectLocator有关，反正就感觉有点对不上
 
-![image-20230313094757046](README.assets\image-20230313094757046.png)
+![image-20230313094757046](README.assets/image-20230313094757046.png)
 
 
 
@@ -896,7 +897,7 @@ ConsoleApplication3!g::g:
 
 这里再贴一下RTTIClassHierarchyDescriptor的定义
 
-![image-20230313102614797](README.assets\image-20230313102614797.png)
+![image-20230313102614797](README.assets/image-20230313102614797.png)
 
 
 
@@ -920,7 +921,7 @@ class C : public B {}
 
 那么就有下图：
 
-![image-20230313103004087](README.assets\image-20230313103004087.png)
+![image-20230313103004087](README.assets/image-20230313103004087.png)
 
 
 
@@ -1004,4 +1005,3 @@ ConsoleApplication3!main+0x65 [C:\Users\123\source\repos\ConsoleApplication3\Con
    19 00e12908 8b02            mov     eax,dword ptr [edx]				; vftable地址取值，第一个虚函数
    19 00e1290a ffd0            call    eax								; 调用虚函数
 ```
-
