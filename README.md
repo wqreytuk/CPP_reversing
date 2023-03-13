@@ -1005,3 +1005,12 @@ ConsoleApplication3!main+0x65 [C:\Users\123\source\repos\ConsoleApplication3\Con
    19 00e12908 8b02            mov     eax,dword ptr [edx]				; vftable地址取值，第一个虚函数
    19 00e1290a ffd0            call    eax								; 调用虚函数
 ```
+
+
+
+对于非虚函数的识别，可以通过查看该函数调用的时候是否将ecx作为this指针传入
+
+
+
+# 自动化
+
